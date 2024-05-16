@@ -1,0 +1,8 @@
+name: 'Fortune Teller'
+type: module
+description: 'Generates a fortune based on the blog entry content.'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:node
+  - drupal:text

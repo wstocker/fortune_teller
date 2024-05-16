@@ -1,0 +1,7 @@
+fortune_teller.settings_form:
+  path: '/admin/config/fortune_teller/settings'
+  defaults:
+    _form: '\Drupal\fortune_teller\Form\FortuneTellerOpenAiForm'
+    _title: 'Fortune Teller Settings'
+  requirements:
+    _permission: 'administer site configuration'

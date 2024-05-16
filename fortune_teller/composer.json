@@ -1,0 +1,11 @@
+{
+  "name": "drupal-openai/fortune-teller",
+  "description": "A Drupal module for integrating an AI fortune teller.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Wendy Stocker"
+    }
+  ]
+}

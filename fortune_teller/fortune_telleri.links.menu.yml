@@ -1,0 +1,6 @@
+drupalai.settings:
+  title: 'Fortune Teller Open AI Settings'
+  description: 'Configure Open AI settings for Fortune Teller'
+  parent: system.admin_config_development
+  route_name: fortune_teller.settings_form
+  weight: 50

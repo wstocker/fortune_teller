@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Fortun Teller module.
+ */
+
+
+/**
+ * Implements hook_update_N().
+ */
+function your_module_name_update_8101() {
+  // Load the content type if it already exists.
+  $content_type = \Drupal::entityTypeManager()->getStorage('node_type')->load('blog');
+
+  // Create the content type if it doesn't exist.
+  if (!$content_type) {
+    $content_type = \Drupal\node\Entity\NodeType::create([
+      'type' => 'blog',
+      'name' => 'Blog',
+    ]);
+    $content_type->save();
+
+    // Set default permissions for the content type.
+    $role = \Drupal\user\Entity\Role::load('anonymous');
+    if ($role) {
+      $role->grantPermission('access content');
+      $role->grantPermission('view published blog content');
+      $role->save();
+    }
+  }
+
+  // Define the fields for the 'blog' content type.
+  $fields = [
+    'field_your_fortune' => [
+      'type' => 'text_long',
+      'label' => 'Your Fortune',
+      'description' => 'Enter your fortune here.',
+    ],
+    'body' => [
+      'type' => 'text_long',
+      'label' => 'Body',
+      'description' => 'Enter the main body content here.',
+    ],
+  ];
+
+  // Create the fields if they don't exist.
+  foreach ($fields as $field_name => $field_info) {
+    $field_storage = \Drupal::entityTypeManager()->getStorage('field_storage_config')->load('node.' . $field_name);
+    if (!$field_storage) {
+      $field_storage = \Drupal\field\Entity\FieldStorageConfig::create([
+        'field_name' => $field_name,
+        'entity_type' => 'node',
+        'type' => $field_info['type'],
+      ]);
+      $field_storage->save();
+    }
+
+    $field_instance = \Drupal::entityTypeManager()->getStorage('field_config')->load('node.blog.' . $field_name);
+    if (!$field_instance) {
+      $field_instance = \Drupal\field\Entity\FieldConfig::create([
+        'field_name' => $field_name,
+        'entity_type' => 'node',
+        'bundle' => 'blog',
+        'label' => $field_info['label'],
+        'description' => $field_info['description'],
+        'settings' => [],
+        'required' => FALSE,
+      ]);
+      $field_instance->save();
+
+      // Set display settings for the field.
+      entity_get_form_display('node', 'blog', 'default')
+        ->setComponent($field_name, [
+          'type' => 'text_textarea_with_summary',
+        ])
+        ->save();
+
+      entity_get_display('node', 'blog', 'default')
+        ->setComponent($field_name, [
+          'label' => 'above',
+          'type' => 'text_default',
+        ])
+        ->save();
+    }
+  }
+}

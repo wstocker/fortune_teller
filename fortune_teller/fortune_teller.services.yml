@@ -1,0 +1,13 @@
+services:
+  fortune_teller.fortune_service:
+    class: Drupal\fortune_teller\FortuneTellerService
+    arguments: ['@messenger', '@fortune_teller.openai_chat']
+
+  fortune_teller.openai_chat:
+    class: Drupal\fortune_teller\OpenAiChat
+
+  fortune_teller.event_subscriber:
+    class: Drupal\fortune_teller\EventSubscriber\FortuneTellerSubscriber
+    arguments: ['@fortune_teller.fortune_service']
+    tags:
+      - { name: 'event_subscriber' }
