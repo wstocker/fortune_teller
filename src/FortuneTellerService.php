@@ -3,7 +3,7 @@
 namespace Drupal\fortune_teller;
 
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\fortune_teller\OpenAiChatInterface;
+use Drupal\fortune_teller\ChatInterface;
 use Drupal\node\Entity\Node;
 
 class FortuneTellerService {
@@ -11,7 +11,7 @@ class FortuneTellerService {
   protected $messenger;
   protected $openAiChat;
 
-  public function __construct(MessengerInterface $messenger, OpenAiChatInterface $openAiChat) {
+  public function __construct(MessengerInterface $messenger, ChatInterface $openAiChat) {
     $this->messenger = $messenger;
     $this->openAiChat = $openAiChat;
   }

@@ -4,12 +4,12 @@ namespace Drupal\fortune_teller;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use Drupal\fortune_teller\OpenAiChatInterface;
+use Drupal\fortune_teller\ChatInterface;
 
 /**
  * OpenAI implementation of Chat.
  */
-class OpenAiChat implements OpenAiChatInterface {
+class OpenAiChat implements ChatInterface {
 
   /**
    * The contents of the request.

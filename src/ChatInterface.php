@@ -5,7 +5,7 @@ namespace Drupal\fortune_teller;
 /**
  * Drupal AI Chat Interface.
  */
-interface OpenAiChatInterface {
+interface ChatInterface {
 
   /**
    * Get Chat.
